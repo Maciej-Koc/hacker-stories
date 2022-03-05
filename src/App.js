@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+import React, { useEffect, useState } from "react";
 
 // Testing different forms of arrow function
 // const hello = () => 'Hello';
@@ -57,8 +58,13 @@ const Item = (props) => (
 );
 
 const Search = () => {
+
+  //searchTerm is the current state, setSearchTerm is the function to update this state
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    setSearchTerm(event.target.value);
   };
   return (
     <div>
