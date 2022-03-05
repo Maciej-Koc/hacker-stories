@@ -1,6 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 
+// Testing different forms of arrow function
+// const hello = () => 'Hello';
+// hello = () => 'Hello';
+
 const list = [
   {
     title: "React",
@@ -20,8 +24,8 @@ const list = [
   },
 ];
 
-function App() {
-  return (
+//Arrow Function
+const App = () => (
     <div>
       <h1>Hacker Stories</h1>
       <Search />
@@ -30,10 +34,9 @@ function App() {
       <List />
     </div>
   );
-}
 
-function List() {
-  return (
+const List = () =>
+  (
     <ul>
       {list.map(function (item) {
         return (
@@ -49,15 +52,13 @@ function List() {
       })}
     </ul>
   );
-}
 
-function Search() {
-  return (
+const Search = () => 
+  (
     <div>
       <label htmlFor="search">Search:</label>
       <input id="search" type="text" />
     </div>
   );
-}
 
 export default App;
