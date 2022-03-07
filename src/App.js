@@ -30,12 +30,18 @@ const App = () => {
   ];
   
   //searchTerm is the current state, setSearchTerm is the function to update this state
-  const [searchTerm, setSearchTerm] = React.useState("");
+  //additionally, this will use the 'search' to save to localStorage for refreshing web browser, if nothing it will default to React
+  const [searchTerm, setSearchTerm] = React.useState(localStorage.getItem('search') || 'React');
+
+  React.useEffect(() => {
+    localStorage.setItem('search', searchTerm);
+  }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
