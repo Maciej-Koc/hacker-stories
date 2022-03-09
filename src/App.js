@@ -6,10 +6,20 @@ import React, { useEffect, useState } from "react";
 // const hello = () => 'Hello';
 // hello = () => 'Hello';
 
+const useSemiPersistentState = (key, initialState) => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(key) || initialState
+  );
+
+  React.useEffect(() => {
+    localStorage.setItem(key``, value);
+  }, [value]);
+
+  return [value, setValue];
+};
+
 //Arrow Function
 const App = () => {
-
-
   const stories = [
     {
       title: "React",
@@ -28,20 +38,19 @@ const App = () => {
       objectID: 1,
     },
   ];
-  
+
   //searchTerm is the current state, setSearchTerm is the function to update this state
   //additionally, this will use the 'search' to save to localStorage for refreshing web browser, if nothing it will default to React
-  const [searchTerm, setSearchTerm] = React.useState(localStorage.getItem('search') || 'React');
+  const [searchTerm, setSearchTerm] = useSemiPersistentState('search', "React");
 
   React.useEffect(() => {
-    localStorage.setItem('search', searchTerm);
+    localStorage.setItem("search", searchTerm);
   }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  
   const searchedStories = stories.filter((story) =>
     story.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -57,7 +66,7 @@ const App = () => {
   );
 };
 
-const List = ({list}) => (
+const List = ({ list }) => (
   <ul>
     {list.map((item) => (
       <Item key={item.objectID} item={item} />
@@ -65,15 +74,7 @@ const List = ({list}) => (
   </ul>
 );
 
-const Item = ({
-item: {
-  title,
-  url,
-  author,
-  num_comments,
-  points,
-},
-}) => (
+const Item = ({ item: { title, url, author, num_comments, points } }) => (
   <li>
     <span>
       <a href={url}>{title}</a>
@@ -84,11 +85,10 @@ item: {
   </li>
 );
 
-const Search = ({search, onSearch}) => (
+const Search = ({ search, onSearch }) => (
   <div>
     <label htmlFor="search">Search: </label>
     <input id="search" type="text" value={search} onChange={onSearch} />
-
   </div>
 );
 
