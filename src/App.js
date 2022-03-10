@@ -12,7 +12,7 @@ const useSemiPersistentState = (key, initialState) => {
   );
 
   React.useEffect(() => {
-    localStorage.setItem(key``, value);
+    localStorage.setItem(key, value);
   }, [value]);
 
   return [value, setValue];
@@ -86,10 +86,10 @@ const Item = ({ item: { title, url, author, num_comments, points } }) => (
 );
 
 const Search = ({ search, onSearch }) => (
-  <div>
+  <>
     <label htmlFor="search">Search: </label>
     <input id="search" type="text" value={search} onChange={onSearch} />
-  </div>
+  </>
 );
 
 export default App;
